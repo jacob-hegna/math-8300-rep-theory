@@ -2,6 +2,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{color}
+\usepackage{tabu}
 \usepackage{fullpage}
 \usepackage{hyperref}
 \usepackage{tikz-cd}
@@ -31,6 +32,7 @@
 \newcommand{\Ab}{\mathbf{Ab}}
 \newcommand{\PAb}{\mathbf{PAb}}
 
+\DeclareMathOperator{\Ob}{Ob}
 \DeclareMathOperator{\Zar}{Zar}
 \DeclareMathOperator{\Fun}{Fun}
 \DeclareMathOperator{\Cov}{Cov}
@@ -261,6 +263,193 @@ algebras.
 
   \item Determine whether or not the path algebra $K(F(Q_2))$ is isomorphic to
     either $K[x]/(x^2)$ or $K[x]/(x^3)$.
+
+    \begin{proof}
+
+    \end{proof}
+\end{enumerate}
+
+\prob{5} Show that the path algebras of the two quivers $Q_1 = \bullet \to
+\bullet \xleftarrow{} \bullet$ and $Q_2 = \bullet \xleftarrow{} \bullet \to
+\bullet$ over $R$ are isomorphic to the algebras of $3 \times 3$ matrices over
+$R$ of the form
+\[
+  R_1 = \begin{bmatrix}
+    a & b & 0 \\
+    0 & c & 0 \\
+    0 & d & e
+  \end{bmatrix}
+  \quad\text{and}\quad
+  R_2 = \begin{bmatrix}
+    a & 0 & 0 \\
+    b & c & d \\
+    0 & 0 & e
+  \end{bmatrix}
+\]
+
+\begin{proof}
+  I claim that $K(F(Q_1)) = R_2$ and $K(F(Q_2)) = R_1$. To see this, we write
+  out the multiplication tables. Write $Q_1 = x \xrightarrow{\alpha} y
+  \xleftarrow{\beta} z$. The multiplication tables are:
+  \[
+    \begin{tabu}{c|ccccc}
+      K(F(Q_1)) & 1_x & 1_y & 1_z & \alpha & \beta \\
+      \hline
+      1_x & 1_x & 0 & 0 & 0 & 0 \\
+      1_y & 0 & 1_y & 0 & \alpha & \beta \\
+      1_z & 0 & 0 & 1_z & 0 & 0 \\
+      \alpha & \alpha & 0 & 0 & 0 & 0 \\
+      \beta & 0 & 0 & \beta & 0 & 0
+    \end{tabu}
+    \quad\text{and}\quad
+    \begin{tabu}{c|ccccc}
+      R_2 & a & c & e & b & d \\
+      \hline
+      a & a & 0 & 0 & 0 & 0 \\
+      c & 0 & c & 0 & b & d \\
+      e & 0 & 0 & e & 0 & 0 \\
+      b & b & 0 & 0 & 0 & 0 \\
+      d & 0 & 0 & d & 0 & 0
+    \end{tabu},
+  \]
+  where we write $i \in \{a, b, c, d, e\}$ for the matrix with $1$ in the $i$th
+  place, where $i$ refers to the coordinate of $R_1$ indicated in the statement
+  of the question. These algebras are necessarily now the same, as mapping
+  obvious elements together, it is immediate that addition is preserved at $1 =
+  1_x + 1_y + 1_z \mapsto 1 = a + c + e$.
+
+  It is not too hard to see that transposing this multiplication table
+  corresponds to transposing $R_1$ to $R_2$ and similarly reversing the
+  direction of $\alpha$, $\beta$ (as transposing the multiplication table
+  simply conjugates the endpoints of the path). However, for clarity, we write
+  the multiplication tables below:
+  \[
+    \begin{tabu}{c|ccccc}
+      K(F(Q_2)) & 1_x & 1_y & 1_z & \alpha & \beta \\
+      \hline
+      1_x & 1_x & 0 & 0 & \alpha & 0 \\
+      1_y & 0 & 1_y & 0 & 0 & 0 \\
+      1_z & 0 & 0 & 1_z & 0 & \beta \\
+      \alpha & 0 & \alpha & 0 & 0 & 0 \\
+      \beta & 0 & \beta & 0 & 0 & 0
+    \end{tabu}
+    \quad\text{and}\quad
+    \begin{tabu}{c|ccccc}
+      R_1 & a & c & e & b & d \\
+      \hline
+      a & a & 0 & 0 & b & 0 \\
+      c & 0 & c & 0 & 0 & 0 \\
+      e & 0 & 0 & e & 0 & d \\
+      b & 0 & b & 0 & 0 & 0 \\
+      d & 0 & d & 0 & 0 & 0
+    \end{tabu}.
+  \]
+\end{proof}
+
+\prob{6} Let $k$ be a field. Show that the space of column vectors $k^n$ is a
+simple module for $M_n(k)$. Show that, as a left module, $M_n(k)$ is the direct
+sum of $n$ modules each isomorphic to $k^n$. Show that, up to isomorphism,
+$M_n(k)$ has only one simple module.
+
+\begin{proof}
+  Let $v \in k^n$ be a nonzero column vector. We consider $k^n$ a vector space
+  with standard basis. As $v$ is nonzero, it has a nonzero coordinate $i$.
+  Indeed, as $k$ is a field, we may choose a matrix which maps $v$ to the $i$th
+  basis vector. There exists a linear transformation which sends this basis
+  vector to any other basis vector in $k^n$ of our liking, which is expressed as
+  an element of $M_n(k)$. This implies that $v$ generates all of $k^n$ and thus
+  $k^n$ is simple.
+
+  Let $N_i \subset M_n(k)$ refer to the submodule of matrices which are zero
+  outside of the $i$th column. This is a submodule as it is a subset which
+  inherits the addition and action of $M_n(k)$, and it is closed under this
+  action by the definition of matrix multiplication. There is an obvious
+  isomorphism of $N_i \cong k^n$ by identifying $k^n$ with the $i$th column of
+  any given matrix. Of course, we have a surjection $M_n(k) \to \bigoplus_i^n
+  N_i$ which projects the $i$th column to $N_i$, and its kernel is zero by
+  definition.
+
+  $M_n(k)$ has only one simple module (up to isomorphism) as the composition
+  series
+  \[
+    0 \subset N_0 \subset N_0 \oplus N_1 \subset \cdots \subset
+    \bigoplus_{i=0}^{n-1} N_i = M_n(k)
+  \]
+  has composition factors $N_i$ and the $i$th place, which is simple as they
+  agree with $k^n$. By Jordan-Hölder, we conclude.
+\end{proof}
+
+\prob{7} Let $C_n$ denote the category with $n$ objects labeled $a_1, \dots,
+a_n$ and where there is a unique homomorphism $a_i \to a_j$ for every ordered
+pair of numbers $(i, j)$. Show that the category algebra $RC_n$ is isomorphic to
+the algebra of $n \times n$ matrices $M_n(R)$.
+
+\begin{proof}
+  This is simply unpacking the definitions. The algebra $RC_n$ has, as a
+  generating set, the arrows $a_i \to a_j =: \beta_{ij}$. The multiplication is
+  defined to be:
+  \[
+    X = \left(\sum_{i \leq j} b_{ij} \beta_{ij}\right) \cdot \left(\sum_{i \leq
+        j} c_{ij} \beta_{ij}\right),
+  \]
+  where the coefficient of $\beta_{ij}$ in $X$ is exactly the sum $\sum_{k=1}^n
+  b_{ik} c_{kj}$, because the product is zero if the morphisms are not
+  composible and the $R$-inherited product otherwise. If we consider the map of
+  sets $RC_n \to M_n(R)$ sending $\beta_{ij}$ to the unit in the $ij$th
+  coordinate of $M_n(R)$ then extending $R$-linearly, we find this is precisely
+  the definition of matrix multiplication.
+\end{proof}
+
+\prob{8} Let $x$ be an object of a finite category $\mathcal{C}$.
+
+\begin{enumerate}
+  \item Show that the subset $R \mathcal{C} \cdot 1_x$ of the category algebra
+    $R \mathcal{C}$ is the span of the morphisms whose domain is $x$, and that
+    $1_x \cdot R\mathcal{C}$ is the span of the morphisms whose codomain is $x$.
+
+    \begin{proof}
+      Of course, this is just the definition of the multiplication in the
+      category algebra. For any $r \beta \in R \mathcal{C}$, we have that $(r
+      \beta) \cdot 1_x$ is $0$ if $o(\beta) \neq x$ and $r \beta$ otherwise.
+      This is the definition of the desired span. For the other direction, the
+      argument is the same, but we consider $t(\beta)$ as the multiplication is
+      on the other side.
+    \end{proof}
+
+  \item Show that $R \mathcal{C} = \bigoplus_{x \in \Ob{\mathcal{C}}} R
+    \mathcal{C} \cdot 1_x$ as left $R\mathcal{C}$-modules.
+
+    \begin{proof}
+      Define a map $\phi : R\mathcal{C} \to \bigoplus R \mathcal{C} \cdot 1_x$
+      by projecting a formal linear sum of morphisms to the direct summand of
+      its domain. By part ($1$), this is surjective. The only element mapped to
+      the identity is $\sum_{x\in\Ob{\mathcal{C}}} 1_x$, so it is a bijection.
+      The projection, of course, preserves the addition. So, we only have to
+      check that the map is stable under the action of the ring. Left
+      multiplication by $R \mathcal{C}$ preserves the domain of a morphism, so
+      the map is a bijective $R\mathcal{C}$-module homomorphism.
+    \end{proof}
+
+  \item Let $R \Hom_\mathcal{C}(x, -)$ denote the functor $C \to R-\mmod$ that
+    sends an object $y$ to the free $R$-module with the set of homomorphisms
+    $\Hom_\mathcal{C}(x, y)$ as a basis. Under the correspondence between
+    representations of $\mathcal{C}$ over $R$ and $R\mathcal{C}$-modules, show
+    that the functor $R \Hom(x, -)$ corresponds to the left
+    $R\mathcal{C}$-module $R\mathcal{C}\cdot 1_x$ and that $R \Hom(-, x)$
+    corresponds to the right $R\mathcal{C}$-module $1_x \cdot R \mathcal{C}$.
+
+    \begin{proof}
+      Under the Mitchell-correspondence, the module formed from the
+      representation (functor) given by $\Hom(x, -)$ is precisely the direct sum
+      over the objects $x$ in $\mathcal{C}$, e.g. $\bigoplus_{y \in
+        \Ob{\mathcal{C}}} R \Hom(x, y)$. This is, by definition, the $R$-linear
+      span of all morphisms whose domain is $x$. By ($1$), this is $R
+      \mathcal{C} \cdot 1_x$. The only thing to check is that the action of
+      $R\mathcal{C}$ agrees on each. Of course, by definition, $R\Hom(x, y)$ is
+      acted on by the basis elements of $R\mathcal{C}$ by composition, which is
+      the same action of $R \mathcal{C} \cdot 1_x$. The same procedure shows
+      that $R \Hom(-, x)$ corresponds to $1_x \cdot R \mathcal{C}$.
+    \end{proof}
 \end{enumerate}
 
 \end{document}
