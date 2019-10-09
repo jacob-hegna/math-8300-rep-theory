@@ -1,0 +1,221 @@
+\documentclass[reqno]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{tabu}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+\usepackage{mathtools}
+\usepackage{csquotes}
+\usepackage{tikz}
+\usepackage{faktor}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usetikzlibrary{arrows}
+
+\newcommand{\ds}[1]{\ensuremath{ \displaystyle{#1} }}
+
+\title{Homework 02\\MATH 8300}
+\author{Jacob Hegna}
+\date{\today}
+
+\newcommand{\Zz}{\mathbb{Z}}
+\newcommand{\Gg}{\mathbb{G}}
+\newcommand{\Hh}{\mathbb{H}}
+\newcommand{\Top}{\mathbf{Top}}
+\newcommand{\Sch}{\mathbf{Sch}}
+\newcommand{\Aff}{\mathbf{Aff}}
+\newcommand{\Ring}{\mathbf{Ring}}
+\newcommand{\Set}{\mathbf{Set}}
+\newcommand{\Sh}{\mathbf{Sh}}
+\newcommand{\Ab}{\mathbf{Ab}}
+\newcommand{\PAb}{\mathbf{PAb}}
+
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Zar}{Zar}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\St}{St}
+\DeclareMathOperator{\link}{link}
+\DeclareMathOperator{\Sub}{Sub}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\mmod}{mod}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Comm}{Comm}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\im}{im}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{remark}
+
+\newcommand{\abs}[1] {
+  \left| #1 \right|
+}
+
+\newcommand{\norm}[1] {
+  \left| \abs{#1} \right|
+}
+
+\newcommand{\prob}[1] {
+  \textbf{Problem #1.}
+}
+
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+
+\begin{document}
+\maketitle
+
+\prob{1} Suppose that $F : \mathcal{C} \to \mathcal{D}$ is an equivalence of
+small categories.
+
+\begin{enumerate}
+  \item Show that, for all objects $x, y \in \Ob \mathcal{C}$, $F$ provides a
+    bijection
+    \[
+      \Hom_\mathcal{C}(x, y) \to \Hom_\mathcal{D}(F(x), F(y)),
+    \]
+    so that $\End_\mathcal{C}(x) \cong \End_\mathcal{D}(F(x))$ as monoids.
+
+    \begin{proof}
+      By hypothesis, $F$ provides a set-theoretic map
+      \[
+        \Hom_\mathcal{C}(x, y) \to \Hom_\mathcal{D}(F(x), F(y)).
+      \]
+      In particular, as $F$ is an equivalence, we have a functor $G :
+      \mathcal{D} \to \mathcal{C}$ which provides a map
+      \[
+        \Hom_\mathcal{D}(F(x), F(y)) \to \Hom_\mathcal{C}(GF(x), GF(y)).
+      \]
+      That $F$ and $G$ are components of an equivalence also implies there are
+      natural transformations $\mu : \Id_\mathcal{C} \to GF$ and $\eta :
+      \Id_\mathcal{D} \to FG$ which are isomorphisms in the functor category
+      $\Fun(\mathcal{C}, \mathcal{D})$. In particular, this means $GF(x) \cong
+      x$ for all $x \in \mathcal{C}$ and that $\Hom_\mathcal{C}(x, y) \cong
+      \Hom_\mathcal{C}(GF(x), GF(y))$ (this is witnessed by $\mu$). Of course,
+      we may say analogous things about objects in $\mathcal{D}$, the
+      set-theoretic maps of $\Hom$-sets defined initially have two-sided
+      inverses. This proves the original claim, and the only thing to verify is
+      that these maps are compatible with the monoidal structure of
+      $\End_\mathcal{C}(x)$ (but, of course, this follows from the compatibility
+      conditions on the functor $F$ for $\mathcal{C}$-associativity).
+    \end{proof}
+
+  \item Show that $x \cong y$ in $\mathcal{C}$ if and only if $F(x) \cong F(y)$
+    in $\mathcal{D}$.
+
+    \begin{proof}
+      If $x \xrightarrow{\phi} y$ is an isomorphism in $\mathcal{C}$, then
+      $F(\phi)$ is an isomorphism in $\mathcal{D}$ (this is true for any
+      functor). For the other direction, we consider an isomorphism $F(x)
+      \xrightarrow{\theta} F(y)$ in $\mathcal{D}$. Using the same naming
+      conventions as the previous problem, we have that $GF(x) \cong GF(y)$,
+      however (as previously noted), $GF(x) \cong x$ due to the existence of the
+      natural isomorphism $\mu$.
+    \end{proof}
+
+  \item Let $\mathcal{E}$ be a further category. Show that the functor
+    categories $\Fun(\mathcal{C}, \mathcal{E})$ and $\Fun(\mathcal{D},
+    \mathcal{E})$ are naturally equivalent.
+
+    \begin{proof}
+      Define a functor $A : \Fun(\mathcal{C}, \mathcal{E}) \to \Fun(\mathcal{D},
+      \mathcal{E})$ by sending a functor $H$ to $G \circ H$. This defines a
+      functor of functor categories by the observation that the composition of
+      functors is a functor (say this sentence ten times fast). Similarly,
+      define a functor $B$ via precomposition with $F$. We lift the natural
+      transformations $\mu$, $\eta$ to the functor categories via a similar
+      process. In particular, given two functors $I, J \in \Fun(\mathcal{C},
+      \mathcal{E})$ with a natural transformation $\nu : I \to J$, we consider a
+      lift of $\eta$:
+      \[
+        \begin{tikzcd}
+          I \ar[r, "\nu"] \ar[d, "\hat{\eta}"] & J \ar[d, "\hat{\eta}"] \\
+          BA(I) \ar[r] & BA(J)
+        \end{tikzcd}
+      \]
+      where we note that $BA(I) = F G I$, and $\eta$ provides a map from $FG \to
+      \Id_\mathcal{C}$. In particular, repeating this process to lift $\mu$ to
+      $\hat{\mu}$ gives a natural isomorphism $A \cong B$, which finishes the
+      proof.
+    \end{proof}
+\end{enumerate}
+
+\prob{2} Let $C$ be a category and let $x, y \in \Ob \mathcal{C}$. Prove that if
+$x \cong y$ then $\Hom(x, -)$ and $\Hom(y, -)$ are naturally isomorphic
+functors.
+
+\begin{proof}
+  We provide two ways to see this. The first is to recall that the Yoneda
+  embedding of a category into its presheaf category is fully faithful (there is
+  a slight problem here that the presheaf category consists of the contravariant
+  functors $\mathcal{C} \to \Set$, but the proof carries through in the
+  covariant case similarly).
+
+  The second, and much more fun, answer, is to note that this question is simply
+  a special case of the final part of problem $(1)$, where we let $\mathcal{C}$
+  be the $2$-category of small categories, then $x \cong y$ is the statement
+  that ``$x$ is equivalent to $y$'' as categories, and the $\Hom$-sets become
+  $\Fun$-sets.
+\end{proof}
+
+\prob{3} Let $F, G : \mathcal{C} \to \mathcal{D}$ be functors and $\eta : F \to
+G$ be natural transformations.
+
+\begin{enumerate}
+  \item Show that if, for all $x \in \Ob \mathcal{C}$, the mapping $\eta_x :
+    F(x) \to G(x)$ is an isomorphism in $\mathcal{D}$, then $\eta$ is a natural
+    isomorphism.
+
+    \begin{proof}
+      The map $\eta_x$ has an inverse $\eta_x$. I claim that the collection of
+      $\mu_x$ gives a natural transformation $\mu$ which inverts $\eta$. We
+      see this by a careful examination of the following diagram:
+      \[
+        \begin{tikzcd}
+          F(x) \ar[r] \ar[d, bend left, "\eta_x"] & F(y) \ar[d, bend left,
+          "\eta_y"] \\
+          G(x) \ar[r] \ar[u, bend left, "\mu_x"] & G(y) \ar[u, bend left,
+          "\mu_y"]
+        \end{tikzcd}
+      \]
+      That everything commutes follows from $\mu_x$ inverting $\eta_x$. In
+      particular, we have a natural transformation, as we have provided a
+      collection of necessary maps, and they satisfy the diagramatic criterion
+      from requirement that $\mu_x$ is a (strict) inverse of $\eta_x$. That
+      $\mu$ is a two sided inverse of $\eta$ is inherited from $\mu_x$ being a two
+      sided inverse of $\eta_X$.
+    \end{proof}
+
+  \item Suppose that $F$ is an equivalence of categories and that $F$ is
+    naturally isomorphic to $G$, so $F \simeq G$. Show that $G$ is an
+    equivalence of categories.
+
+    \begin{proof}
+      
+    \end{proof}
+\end{enumerate}
+
+\end{document}
