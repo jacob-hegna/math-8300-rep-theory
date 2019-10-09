@@ -2,6 +2,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{color}
+\usepackage{extarrows}
 \usepackage{tabu}
 \usepackage{fullpage}
 \usepackage{hyperref}
@@ -31,6 +32,7 @@
 \newcommand{\Sh}{\mathbf{Sh}}
 \newcommand{\Ab}{\mathbf{Ab}}
 \newcommand{\PAb}{\mathbf{PAb}}
+\newcommand{\SmallCat}{\mathbf{SmallCat}}
 
 \DeclareMathOperator{\Ob}{Ob}
 \DeclareMathOperator{\Id}{Id}
@@ -214,7 +216,85 @@ G$ be natural transformations.
     equivalence of categories.
 
     \begin{proof}
-      
+      Say that $F^{-1}$ is the functor which inverts $F$ up to a natural
+      isomorphism $\eta$. Suppose $\mu$ witnesses $G \simeq F$. That is, we have
+      an isomorphism $\mu_x : G(x) \cong F(x)$ for all $x$. Define the functor
+      $G^{-1}$ on objects by $G^{-1}(x) = F^{-1}(\mu_x(x))$. It is compatible
+      with morphisms because $\mu$ is a natural transformation. In particular,
+      if we consider $G^{-1}G(x)$, we get a natural transformation to the
+      identity functor from $\eta$.
+    \end{proof}
+\end{enumerate}
+
+\prob{4} Let $\mathcal{C}$ be a small category. A \textit{self-equivalence} of
+$\mathcal{C}$ is an equivalence of categories $F : \mathcal{C} \to \mathcal{C}$.
+Show that the set of natural isomorphism classes of self equivalences of
+$\mathcal{C}$ is a group, with multiplication induced by composition of
+functors.
+
+\begin{proof}
+  We note that the second part of question ($3$) is what allows this definition
+  to make sense at all.
+
+  The identity element of the group is the equivalence class of the identity
+  functor. We need to check that composition is well-defined, which will imply
+  that the operation is associative (as on-the-nose functor composition is
+  associative) and that there exist inverses (as, for any $F$ in the set, there
+  exists an inverse up to natural isomorphism). So, we check this in two parts.
+  Suppose $F_0 \simeq_{\mu} F_1$, we will show $F_0 G \simeq F_1 G$. We define a
+  natural transformation $\eta$ where $\eta_x := \mu_{G(x)}$, which is a natural
+  isomorphism with inverse given by the natural transformation taking $G^{-1}G$
+  to the identity. Similarly, $G F_0 \simeq G F_1$ via $\tau_x := G(\mu_x)$. For
+  clarity, we give the diagram for this second natural isomorphism:
+  \[
+    \begin{tikzcd}
+      F_0(x) \ar[r] \ar[d, "\mu_x"] & F_0(y) \ar[d, "\mu_{y}"] \\
+      F_1(x) \ar[r] & F_1(y)
+    \end{tikzcd}
+    \xLongrightarrow[]{G}
+    \begin{tikzcd}
+      GF_0(x) \ar[r] \ar[d, "G(\mu_x)"] & GF_0(y) \ar[d, "G(\mu_{y})"] \\
+      GF_1(x) \ar[r] & GF_1(y)
+    \end{tikzcd}
+  \]
+\end{proof}
+
+\prob{5} Let $G$ be a group, which we regard as a category $\mathcal{G}$ with a
+single object, and the elements of $G$ as morphisms. Let $F : \mathcal{G} \to
+\mathcal{G}$ is a functor.
+
+\begin{enumerate}
+  \item Show that $F$ is naturally isomorphism to the identity functor iff the
+    mapping $F : G \to G$ induced by $F$ is an inner automorphism.
+
+    \begin{proof}
+      Suppose $F$ is naturally isomorphic to the identity functor via $\eta$. In
+      particular, $\eta_G \circ F(g) = g \circ \eta_G$ where $g$ is an element
+      of $G$ regarded as a morphism. In particular, $F(g) = \eta_G^{-1} \circ g \circ
+      \eta_g$. We check that $\eta_G$ must be multiplication by an element of
+      $G$. In particular, natural transformation from $F$ to $\Id$ by definition
+      associates to every object of the category a morphism from $F(G)$ to $G$,
+      which in this case reduces to a choice of element of $G$.
+
+      In the other direction, suppose that we have such an expression
+      for $F$, $F(h) = g^{-1}hg$. So, we get a diagram
+      \[
+        \begin{tikzcd}
+          G \ar[r, "h"] \ar[d, "g"] & G \ar[d, "g"] \\
+          F(G) \ar[r, "F(h)"] & F(G)
+        \end{tikzcd}
+      \]
+      Take $\eta_G = g$.
+    \end{proof}
+
+  \item Show that self equivalences of $\mathcal{G}$ are automorphisms of $G$.
+
+    \begin{proof}
+      Let $F$ be such a self equivalence. It maps $\End_\mathcal{G}(G)$ to
+      itself, so it is a bijection, and by question ($1$), this is compatible
+      with the monoid structure of $\End_\mathcal{G}(G)$. The monoid operation
+      on this endomorphism set is the group operation of $G$ (by definition of
+      the categorification of a group). This is all we needed to show.
     \end{proof}
 \end{enumerate}
 
